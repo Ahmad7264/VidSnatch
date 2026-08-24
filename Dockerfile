@@ -4,6 +4,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        ffmpeg \
        python3 \
+       curl \
        ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
@@ -14,7 +15,11 @@ RUN npm ci --omit=dev
 
 COPY . .
 
-RUN chmod +x bin/yt-dlp 2>/dev/null || true
+# Download yt-dlp during Docker build
+RUN curl -L \
+    https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+    -o /app/bin/yt-dlp \
+    && chmod +x /app/bin/yt-dlp
 
 ENV NODE_ENV=production
 ENV PORT=3000
