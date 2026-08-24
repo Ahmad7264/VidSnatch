@@ -2,7 +2,7 @@
    VidSnatch — Client-side Logic
    ============================================================ */
 
-const API = "";
+const API = "https://vidsnatch-1-4suv.onrender.com";
 
 // ── Stored state ─────────────────────────────────────────────
 let igVideoUrl = "";
@@ -301,7 +301,7 @@ async function fetchInstagram() {
   $("ig-fetch-btn").disabled = true;
 
   try {
-    const res = await fetch("/api/info", {
+    const res = await fetch(`${API}/api/info`, {
       method: "POST",
 
       headers: {
@@ -420,9 +420,9 @@ async function fetchYouTube() {
   hideEl("yt-dl-wrap");
 
   try {
-    const res = await fetch("/api/info", {
+    const res = await fetch(`${API}/api/info`, {
       method: "POST",
-
+      
       headers: {
         "Content-Type": "application/json",
       },
