@@ -1,7 +1,11 @@
 FROM node:20-bookworm-slim
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg python3 ca-certificates \
+    && apt-get install -y --no-install-recommends \
+       ffmpeg \
+       python3 \
+       yt-dlp \
+       ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -11,7 +15,9 @@ RUN npm ci --omit=dev
 
 COPY . .
 
-RUN chmod +x bin/yt-dlp 2>/dev/null || true
+RUN mkdir -p /app/bin \
+    && ln -sf /usr/bin/yt-dlp /app/bin/yt-dlp \
+    && chmod +x /app/bin/yt-dlp
 
 ENV NODE_ENV=production
 ENV PORT=3000
