@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vidsnatch
+    runtime: docker
+    plan: free
+    healthCheckPath: /

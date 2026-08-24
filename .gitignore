@@ -1,0 +1,7 @@
+node_modules/
+bin/
+*.mp4
+*.mp3
+*.webm
+*.m4a
+.env
