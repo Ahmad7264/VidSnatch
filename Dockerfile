@@ -15,10 +15,11 @@ RUN npm ci --omit=dev
 
 COPY . .
 
-# Download yt-dlp during Docker build
-RUN curl -L \
-    https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
-    -o /app/bin/yt-dlp \
+# Make sure bin directory exists and install yt-dlp
+RUN mkdir -p /app/bin \
+    && curl -L \
+       https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+       -o /app/bin/yt-dlp \
     && chmod +x /app/bin/yt-dlp
 
 ENV NODE_ENV=production
